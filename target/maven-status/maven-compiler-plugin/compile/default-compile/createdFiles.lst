@@ -1,7 +1,10 @@
-com\mycompany\grupo_6_pfa1\EstadoJuego.class
-com\mycompany\grupo_6_pfa1\GRUPO_6_PFA1.class
+com\mycompany\grupo_6_pfa1\HistorialPosicion.class
 com\mycompany\grupo_6_pfa1\Juego.class
 com\mycompany\grupo_6_pfa1\NodoColaJugadores.class
+com\mycompany\grupo_6_pfa1\JugadorBitacora.class
 com\mycompany\grupo_6_pfa1\NodoListaCircular.class
-com\mycompany\grupo_6_pfa1\Cola_Jugadores.class
+com\mycompany\grupo_6_pfa1\Bitacora.class
 com\mycompany\grupo_6_pfa1\ListaCircular.class
+com\mycompany\grupo_6_pfa1\EstadoJuego.class
+com\mycompany\grupo_6_pfa1\GRUPO_6_PFA1.class
+com\mycompany\grupo_6_pfa1\Cola_Jugadores.class

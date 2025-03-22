@@ -8,23 +8,25 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Susana Jimenez
+ * @author Julio Quiros
  */
 public class Ayuda {
-        public void mostrarAyuda() {
-        JOptionPane.showMessageDialog(null, 
-         "Versión: 1.0.3\n" +
-         "Este es un juego de carreras donde los jugadores avanzan según los resultados de los dados.\n" +
-         "Reglas del juego:\n" +
-         "1. Los jugadores tiran los dados y avanzan en el tablero.\n" +
-         "2. Si el total de los dados es par, reciben un premio.\n" +
-         "3. Si el total de los dados es impar, reciben un castigo.\n" +
-         "4. Se puede listar los jugadores y su posición actual.\n" +
-         "5. Un jugador puede retirarse en cualquier momento.\n\n" +
-         "Desarrollado por:\n" +
-         "Jesus Anchia\n" +
-         "Dylan Gonzalez\n" +
-         "Julio Quiros"
-         );
+
+    public void mostrarAyuda() {
+        JOptionPane.showMessageDialog(null,
+                "Versión: 1.0.3\n"
+                + "Este es un juego de carreras donde los jugadores avanzan según los resultados de los dados.\n"
+                + "Reglas del juego:\n"
+                + "1. Los jugadores tiran los dados y avanzan en el tablero.\n"
+                + "2. Si el total de los dados es par, reciben un premio.\n"
+                + "3. Si el total de los dados es impar, reciben un castigo.\n"
+                + "4. Se puede listar los jugadores y su posición actual.\n"
+                + "5. Un jugador puede retirarse en cualquier momento.\n\n"
+                + "6. Tenemos una Bitacora de Historial de Jugadores , su pocisio y premios obetenidos.\n\n"
+                + "Desarrollado por:\n"
+                + "Jesus Anchia\n"
+                + "Dylan Gonzalez\n"
+                + "Julio Quiros"
+        );
     }
 }
