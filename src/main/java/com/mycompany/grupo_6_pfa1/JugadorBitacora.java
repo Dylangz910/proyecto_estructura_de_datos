@@ -2,7 +2,8 @@ package com.mycompany.grupo_6_pfa1;
 
 /**
  *
- * @author Julio Quiros Esta es la clase que contiene NodoDobleCircular para
+ * @author Julio Quiros
+ * Esta es la clase que contiene NodoDobleCircular para
  * recorrer el historial de jugadores
  * @param nombre : nombre del jugador
  * @param historial : historial de posiciones del jugador
