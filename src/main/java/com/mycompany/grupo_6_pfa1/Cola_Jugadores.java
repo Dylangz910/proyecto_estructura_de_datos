@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author Julio Quiros
+ * @param frente : Puntero al inicio
+ * @param frente : Puntero al final
  */
 public class Cola_Jugadores {
 
