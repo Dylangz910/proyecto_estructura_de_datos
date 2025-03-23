@@ -31,6 +31,7 @@ public class Juego {
     private EstadoJuego estado;
     private int posicionMaxima;
     private Bitacora bitacora;
+    private boolean permitirAdicionarJugadores;
 
     public Juego() {
         jugadores = new Cola_Jugadores();
@@ -69,7 +70,7 @@ public class Juego {
                 JOptionPane.showMessageDialog(null, "Ingrese una cantidad válida");
             }
         }
-
+        
         for (int i = 0; i < cantidad; i++) {
             String nombre = JOptionPane.showInputDialog("Ingrese el nombre del jugador " + (i + 1) + ":");
             jugadores.encolar(new NodoColaJugadores(nombre));
@@ -79,7 +80,7 @@ public class Juego {
         while (true) {
             try {
                 this.posicionMaxima = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la posicion máxima del juego"));
-                if (cantidad <= 0) {
+                if (posicionMaxima <= 0) {
                     JOptionPane.showMessageDialog(null, "La posicion máxima no puede ser igual a cero o negativa");
                 } else {
                     break;
@@ -87,8 +88,15 @@ public class Juego {
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Ingrese una cantidad válida");
             }
-
         }
+        
+        String permitir = JOptionPane.showInputDialog("¿Permitir adicionar jugadores durante el juego? (S/N)").toUpperCase();
+        if (permitir.equals("S")) {
+            permitirAdicionarJugadores = true;
+      } else {
+            permitirAdicionarJugadores = false;
+}
+        
         estado.generarPosiciones(posicionMaxima);
     }
 
@@ -101,7 +109,7 @@ public class Juego {
             int opcion = 0;
             while (true) {
                 try {
-                    opcion = Integer.parseInt(JOptionPane.showInputDialog("***Menu Principal***\n1. Tirar dados\n2. Listar jugadores\n3. Retirar Jugador\n4. Mostrar pila de premios\n5. Mostrar pila de castigos\n6. Mantener pila de premios\n7. Mantener pila de castigos\n8. Estado Actual del Juego\n9. Mostrar Ayuda\n10. Bitacora-Historial\n11. Salir del Juego"));
+                    opcion = Integer.parseInt(JOptionPane.showInputDialog("***Menu Principal***\n1. Tirar dados\n2. Listar jugadores\n3. Retirar Jugador\n4. Mostrar pila de premios\n5. Mostrar pila de castigos\n6. Mantener pila de premios\n7. Mantener pila de castigos\n8. Estado Actual del Juego\n9. Agregar jugador\n10. Mostrar Ayuda\n11. Bitacora-Historial\n12. Salir del Juego"));
                     break;
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Ingrese una opcion valida");
@@ -130,30 +138,41 @@ public class Juego {
             } else if (opcion == 8) {
                 estado.mostrarEstadoDeJuego(posicionMaxima);
             } else if (opcion == 9) {
-                ayuda.mostrarAyuda();
-            } else if (opcion == 10) {
-                boolean salir = false;
-                while (!salir) {
-                    bitacora.mostrarJugadorActual();
-                    String nav = JOptionPane.showInputDialog("Ver (A)nterior, (S)iguiente o (X) para salir").toUpperCase();
-                    switch (nav) {
-                        case "A":
-                            bitacora.anterior();
-                            break;
-                        case "S":
-                            bitacora.siguiente();
-                            break;
-                        default:
-                            bitacora.reiniciarActual();
-                            salir = true;
-                            break;
-                    }
-                }
-            } else {
-                break;
+                if (!permitirAdicionarJugadores) {
+                JOptionPane.showMessageDialog(null, "¡ERROR! La configuración de este juego no permite ingresar más jugadores, deberá esperar a que inicie uno nuevo.");
+                } else {
+                    String nuevoJugador = JOptionPane.showInputDialog("Ingrese el nombre del nuevo jugador:");
+                        jugadores.encolar(new NodoColaJugadores(nuevoJugador));
+                        bitacora.agregarJugador(nuevoJugador);
+                        JOptionPane.showMessageDialog(null, "Jugador agregado correctamente.");   
             }
+            } else if (opcion == 10) {
+                 ayuda.mostrarAyuda();
+        } else if (opcion == 11) {
+            boolean salir = false;
+            while (!salir) {
+                bitacora.mostrarJugadorActual();
+                String nav = JOptionPane.showInputDialog("Ver (A)nterior, (S)iguiente o (X) para salir").toUpperCase();
+                switch (nav) {
+                    case "A":
+                        bitacora.anterior();
+                        break;
+                    case "S":
+                        bitacora.siguiente();
+                        break;
+                    default:
+                        bitacora.reiniciarActual();
+                        salir = true;
+                        break;
+                }
+            }
+        } else if (opcion == 12) {
+            break;
+        } else {
+            JOptionPane.showMessageDialog(null, "Opcion invalida.");
         }
     }
+}
 
     private boolean tirarDados() {
         if (jugadores.estaVacia()) {
@@ -206,7 +225,17 @@ public class Juego {
             }
         }
         if (verificarGanador(jugador)) {
-            return true;
+            if (jugador.getPosicion() == posicionMaxima) {
+        return true;
+    } else if (jugador.getPosicion() > posicionMaxima) {
+        int exceso = jugador.getPosicion() - posicionMaxima;
+        int nuevaPosicion = posicionMaxima - exceso;
+        jugador.setPosicion(nuevaPosicion);
+        JOptionPane.showMessageDialog(null, "Sobrepasaste la posición máxima. Rebotas hacia atrás a la posición: " + nuevaPosicion);
+        return false;
+    } else {
+        return false;
+    }
         }
 
         jugadores.encolar(jugador);
