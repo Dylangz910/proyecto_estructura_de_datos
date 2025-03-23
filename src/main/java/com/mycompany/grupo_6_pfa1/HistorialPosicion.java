@@ -13,10 +13,10 @@ import java.util.Date;
  */
 
 public class HistorialPosicion {
-    int posicion;
-    Date timestamp;
-    String mensaje;
-    HistorialPosicion siguiente;
+    private int posicion;
+    private Date timestamp;
+    private String mensaje;
+    private HistorialPosicion siguiente;
 
     public HistorialPosicion(int posicion, String mensaje) {
         this.posicion = posicion;
@@ -24,4 +24,38 @@ public class HistorialPosicion {
         this.timestamp = new Date();
         this.siguiente = null;
     }
+
+    public int getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(int posicion) {
+        this.posicion = posicion;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public HistorialPosicion getSiguiente() {
+        return siguiente;
+    }
+
+    public void setSiguiente(HistorialPosicion siguiente) {
+        this.siguiente = siguiente;
+    }
+    
+    
 }

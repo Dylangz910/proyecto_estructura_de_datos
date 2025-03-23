@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
  * @param bitacora : informacion historico de Jugadores
  */
 public class Juego {
+    
 
     private Cola_Jugadores jugadores;
     private Random random;
@@ -115,6 +116,7 @@ public class Juego {
                 jugadores.listarJugadores();
             } else if (opcion == 3) {
                 String jugadorRetirar = JOptionPane.showInputDialog("Ingrese el nombre del jugador a retirar:");
+                bitacora.eliminarJugador(jugadorRetirar);
                 jugadores.retirarJugador(jugadorRetirar);
                 estado.vaciarPosicion(jugadorRetirar);
             } else if (opcion == 4) {
@@ -142,6 +144,7 @@ public class Juego {
                             bitacora.siguiente();
                             break;
                         default:
+                            bitacora.reiniciarActual();
                             salir = true;
                             break;
                     }
@@ -168,6 +171,7 @@ public class Juego {
         JOptionPane.showMessageDialog(null, "Jugador " + jugador.getNombre()
                 + " tiró los dados y obtuvo " + dado1 + " y " + dado2
                 + ". Avanza " + total + " posiciones. Nueva posición: " + jugador.getPosicion());
+        
 
         if (verificarGanador(jugador)) {
             return true;

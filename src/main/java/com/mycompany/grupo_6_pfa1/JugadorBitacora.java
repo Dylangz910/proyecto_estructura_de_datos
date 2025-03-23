@@ -12,10 +12,10 @@ package com.mycompany.grupo_6_pfa1;
  */
 public class JugadorBitacora {
 
-    String nombre;
-    HistorialPosicion historial;
-    JugadorBitacora siguiente;
-    JugadorBitacora anterior;
+    private String nombre;
+    private HistorialPosicion historial;
+    private JugadorBitacora siguiente;
+    private JugadorBitacora anterior;
 
     public JugadorBitacora(String nombre) {
         this.nombre = nombre;
@@ -23,35 +23,70 @@ public class JugadorBitacora {
         this.siguiente = this.anterior = null;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public JugadorBitacora getSiguiente() {
+        return siguiente;
+    }
+
+    public void setSiguiente(JugadorBitacora siguiente) {
+        this.siguiente = siguiente;
+    }
+
+    public JugadorBitacora getAnterior() {
+        return anterior;
+    }
+
+    public void setAnterior(JugadorBitacora anterior) {
+        this.anterior = anterior;
+    }
+
     public void registrarMovimiento(int posicion, String mensaje) {
         HistorialPosicion nuevo = new HistorialPosicion(posicion, mensaje);
         if (historial == null) {
             historial = nuevo;
-        } else {
-            HistorialPosicion actual = historial;
-            while (actual.siguiente != null) {
-                if (actual.posicion == posicion) {
-                    actual.timestamp = nuevo.timestamp;
-                    actual.mensaje = nuevo.mensaje;
-                    return;
-                }
-                actual = actual.siguiente;
-            }
-            actual.siguiente = nuevo;
+            return;
         }
+        
+        if(posicion < historial.getPosicion()) {
+            nuevo.setSiguiente(historial);
+            historial = nuevo;   
+            return;
+        }
+        
+        HistorialPosicion temp = historial;
+        while (temp.getSiguiente() != null && temp.getSiguiente().getPosicion() <= posicion){
+            if(temp.getSiguiente().getPosicion()==posicion){
+                temp = temp.getSiguiente();
+                temp.setTimestamp(nuevo.getTimestamp());
+                temp.setMensaje(nuevo.getMensaje());
+                return;
+            }
+            temp = temp.getSiguiente();
+        }
+        nuevo.setSiguiente(temp.getSiguiente());
+        temp.setSiguiente(nuevo);
+        
     }
+    
 
     public String mostrarHistorial() {
-        StringBuilder sb = new StringBuilder("Historial de " + nombre + ":");
+        StringBuilder sb = new StringBuilder("Historial de " + nombre + ":"+"\n");
         HistorialPosicion actual = historial;
-        while (actual != null) {
-            sb.append("Posición: ").append(actual.posicion)
-                    .append(" | Hora: ").append(actual.timestamp)
-                    .append(" | Info: ").append(actual.mensaje).append("\n");
-            actual = actual.siguiente;
-        }
         if (actual == null) {
-            sb.append(" Jugador no ah tirado dados ");
+            sb.append(" Jugador no ha tirado dados ");
+        }
+        while (actual != null) {
+            sb.append("Posición: ").append(actual.getPosicion())
+                    .append(" | Hora: ").append(actual.getTimestamp())
+                    .append(" | Info: ").append(actual.getMensaje()).append("\n").append("\n");
+            actual = actual.getSiguiente();
         }
         return sb.toString();
     }
