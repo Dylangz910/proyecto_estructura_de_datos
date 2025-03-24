@@ -7,8 +7,8 @@ package com.mycompany.grupo_6_pfa1;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author ramon
+ * Clase que gestiona el estado del juego, permitiendo generar posiciones, actualizar el estado de los jugadores en esas posiciones,
+ * @author Jesus Anchia
  */
 public class EstadoJuego {
     ListaCircular lista;
@@ -17,12 +17,24 @@ public class EstadoJuego {
         this.lista = new ListaCircular();
     }
     
+    /**
+     * Genera las posiciones en el juego, insertando números desde 1 hasta la posición máxima.
+     * @author Jesus Anchia
+     * @param posicionMaxima La cantidad máxima de posiciones que se generarán en el juego.
+     */
     public void generarPosiciones(int posicionMaxima){
         for(int i= 1; i<=posicionMaxima; i++){
            lista.insertar(i);
         }
     }
-        
+    
+    /**
+     * Actualiza el estado de juego asignando un nombre de jugador a una posición específica.
+     * Si un jugador ya está en la posición, su nombre será marcado como "VACIA".
+     * @author Jesus Anchia
+     * @param posicion La posición que se actualizará.
+     * @param nombreJugador El nombre del jugador que ocupará la posición.
+     */
     public void actualizarEstadoDeJuego(int posicion, String nombreJugador){
         if (lista == null || lista.getFrente() == null) {
         return; 
@@ -39,8 +51,14 @@ public class EstadoJuego {
         }while(temp!=lista.getFrente());
         }
     
+    /**
+     * Muestra el estado actual del juego, destacando a los jugadores con diferentes colores según su posición en el juego.
+     * El color verde representa las primeras posiciones, amarillo las intermedias, y rojo las posiciones finales.
+     * @author Jesus Anchia
+     * @param posicionMaxima El total de posiciones disponibles en el juego para determinar los porcentajes de colores.
+     */
     public void mostrarEstadoDeJuego(int posicionMaxima){
-      if (lista.getFrente() == null) {  // Validar que la lista no esté vacía
+      if (lista.getFrente() == null) {  
         JOptionPane.showMessageDialog(null, "La lista está vacía. No hay posiciones para mostrar.");
         return;
       }
@@ -71,6 +89,11 @@ public class EstadoJuego {
       JOptionPane.showMessageDialog(null, listaPosiciones);
     }
     
+    /**
+     * Vacía la posición de un jugador específico en el juego.
+     * @author Jesus Anchia
+     * @param jugadorEliminar El nombre del jugador que se desea eliminar de la posición.
+     */
     public void vaciarPosicion(String jugadorEliminar){
         NodoListaCircular temp = lista.getFrente();
         boolean encontrado=false;

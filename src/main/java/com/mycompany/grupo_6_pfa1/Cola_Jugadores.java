@@ -10,7 +10,8 @@ import javax.swing.JOptionPane;
  *
  * @author Julio Quiros
  * @param frente : Puntero al inicio
- * @param frente : Puntero al final
+ * @param fin : Puntero al final
+ * @param posicion : Posicion del jugador
  */
 public class Cola_Jugadores {
 
@@ -21,26 +22,31 @@ public class Cola_Jugadores {
     public Cola_Jugadores() {
         this.frente = this.fin = null;
     }
-
+    
+    /**	
+	* Extrae el nodo que esta en el frente
+	* @author Julio Quirós
+        * @return retorna el Nodo que se encuentra a inicio de la cola
+    */
     public NodoColaJugadores getFrente() {
         return frente;
     }
-
+    
+    /**	
+	* Retorna si la cola se encuentra vacia
+	* @author Julio Quirós
+        * @return retorna boolean, el resultado de frente=null
+    */
     public boolean estaVacia() {
         return frente == null;
     }
-
+    
+    /**	
+	* Encola al jugador al final de la cola
+	* @author Julio Quirós
+        * @param nombre Corresponde al Nodo que se colocara al final de la cola
+    */
     public void encolar(NodoColaJugadores nombre) {
-        ///NodoColaJugadores nuevo = new NodoColaJugadores(nombre);
-        /*
-        if (estaVacia()) {
-            frente = fin = nombre;
-        } else {
-            fin.setSiguiente(nombre);
-            fin = nombre;
-        }
-        fin.siguiente = null;
-         */
         if (fin == null) {
             frente = fin = nombre;
         } else {
@@ -51,6 +57,11 @@ public class Cola_Jugadores {
 
     }
     
+    /**
+     * Verifica si la cola está vacía.
+     * @author Julio Quirós
+     * @return true si la cola está vacía, false en caso contrario.
+     */
     public boolean esVacia(){
         if(frente==null){
             return true;
@@ -58,7 +69,12 @@ public class Cola_Jugadores {
             return false;
         }
     }
-
+    
+    /**
+     * Desencola el jugador que se encuentra al inicio de la cola.
+     * @author Julio Quirós
+     * @return El nodo que representa al jugador desencolado o null si la cola está vacía.
+     */
     public NodoColaJugadores desencolar() {
         if (estaVacia()) {
             return null;
@@ -70,14 +86,13 @@ public class Cola_Jugadores {
         }
         return jugador;
     }
-
-    public NodoColaJugadores moverAlFinal() {   // cambie a  NodoColaJugadores  remover()
-
-        /*
-        if (estaVacia() || frente == fin) return;
-        NodoColaJugadores jugador = desencolar();
-        encolar(jugador.getNombre());
-         */
+    
+    /**
+     * Mueve el jugador al final de la cola.
+     * @author Julio Quirós
+     * @return El jugador que se movió al final de la cola o null si la cola está vacía.
+     */
+    public NodoColaJugadores moverAlFinal() {   
         if (frente == null) {
             return null;
         }
@@ -89,7 +104,11 @@ public class Cola_Jugadores {
         return temp;
 
     }
-
+    
+     /**
+     * Lista todos los jugadores en la cola.
+     * @author Julio Quirós
+     */
     public void listarJugadores() {
         NodoColaJugadores actual = frente;
         String lista = "Lista de Jugadores:\n";
@@ -104,7 +123,12 @@ public class Cola_Jugadores {
         }
         JOptionPane.showMessageDialog(null, lista);
     }
-
+    
+    /**
+     * Retira un jugador de la cola por su nombre.
+     * @author Julio Quirós
+     * @param nombre Nombre del jugador que se desea retirar de la cola.
+     */
     public void retirarJugador(String nombre) {
         if (estaVacia()) {
             return;

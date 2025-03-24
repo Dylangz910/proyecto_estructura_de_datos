@@ -11,7 +11,11 @@ import javax.swing.JOptionPane;
  * @author Julio Quiros
  */
 public class Ayuda {
-
+    
+     /**	
+	* Muestra las instrucciones generales del juego y su versión actual
+	* @author Jesus Anchia
+    */
     public void mostrarAyuda() {
         JOptionPane.showMessageDialog(null,
                 "Versión: 2.0.0\n"
