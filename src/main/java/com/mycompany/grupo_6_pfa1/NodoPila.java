@@ -5,13 +5,16 @@
 package com.mycompany.grupo_6_pfa1;
 
 /**
- *
- * @author SusanaJF
+ * Nodo generico de una pila que representa un premio o castigo en el juego.
+ * @author Dylan Gonzales
+ * @param valor un número que representa el valor del premio o castigo.
+ * @param operacion un carácter que indica si es un premio ('+') o un castigo ('-' o '=').
+ * @param siguiente una referencia al siguiente nodo de la pila.
  */
 public class NodoPila {
-    int valor; // Número que representa el premio o castigo
-    char operacion; // '+' para premios, '-' o '=' para castigos
-    NodoPila siguiente; // Apunta al siguiente nodo en la pila
+    int valor; 
+    char operacion; 
+    NodoPila siguiente; 
 
     public NodoPila(char operacion, int valor) {
         this.operacion = operacion;

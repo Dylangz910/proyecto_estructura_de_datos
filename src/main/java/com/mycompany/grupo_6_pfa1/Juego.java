@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Andy , Julio
+ * @author Dylan Gonzáles , Julio Quirós, Jesus Anchia
  * Esta es la clase donde se empieza el juego con sus diferentes funciones y metodos.
  * @param jugadores : representacion de jugadores
  * @param random : metodo random para los dados
@@ -32,6 +32,7 @@ public class Juego {
     private int posicionMaxima;
     private Bitacora bitacora;
     private boolean permitirAdicionarJugadores;
+    private int cantidadDeJugadoresActuales;
 
     public Juego() {
         jugadores = new Cola_Jugadores();
@@ -44,7 +45,11 @@ public class Juego {
         cargarPremiosCastigos();
         bitacora = new Bitacora();
     }
-
+    
+    /**
+     * Método privado para cargar los premios y castigos en el juego.
+     * @author Dylan Gonzales, Julio Quiros, Jesus Anchia
+     */
     private void cargarPremiosCastigos() {
         premios.apilar('+', 2);
         premios.apilar('+', 8);
@@ -54,7 +59,12 @@ public class Juego {
         castigos.apilar('=', 1);
         castigos.apilar('-', 5);
     }
-
+    
+     /**
+     * Inicia el juego, solicita la cantidad de jugadores y la posición máxima, y configura si se permiten
+     * adicionar jugadores durante el juego.
+     * @author Dylan Gonzales, Julio Quiros, Jesus Anchia
+     */
     public void iniciarJuego() {
         int cantidad = 0;
         while (true) {
@@ -70,7 +80,7 @@ public class Juego {
                 JOptionPane.showMessageDialog(null, "Ingrese una cantidad válida");
             }
         }
-        
+        cantidadDeJugadoresActuales = cantidad;
         for (int i = 0; i < cantidad; i++) {
             String nombre = JOptionPane.showInputDialog("Ingrese el nombre del jugador " + (i + 1) + ":");
             jugadores.encolar(new NodoColaJugadores(nombre));
@@ -99,7 +109,11 @@ public class Juego {
         
         estado.generarPosiciones(posicionMaxima);
     }
-
+    
+     /**
+     * Ejecuta el ciclo principal del juego, mostrando el menú y gestionando las interacciones con los jugadores.
+     * @author Dylan Gonzales, Julio Quiros, Jesus Anchia
+     */
     public void jugar() {
         while (true) {
             if (jugadores.esVacia()) {
@@ -141,10 +155,15 @@ public class Juego {
                 if (!permitirAdicionarJugadores) {
                 JOptionPane.showMessageDialog(null, "¡ERROR! La configuración de este juego no permite ingresar más jugadores, deberá esperar a que inicie uno nuevo.");
                 } else {
-                    String nuevoJugador = JOptionPane.showInputDialog("Ingrese el nombre del nuevo jugador:");
+                    if(cantidadDeJugadoresActuales == 4){
+                        JOptionPane.showMessageDialog(null, "¡ERROR! Ya se ha alcanzado el numero maximo de jugadores, deberá esperar a que inicie uno nuevo.");
+                    }else{
+                        String nuevoJugador = JOptionPane.showInputDialog("Ingrese el nombre del nuevo jugador:");
                         jugadores.encolar(new NodoColaJugadores(nuevoJugador));
                         bitacora.agregarJugador(nuevoJugador);
-                        JOptionPane.showMessageDialog(null, "Jugador agregado correctamente.");   
+                        cantidadDeJugadoresActuales++;
+                        JOptionPane.showMessageDialog(null, "Jugador agregado correctamente.");             
+                    }  
             }
             } else if (opcion == 10) {
                  ayuda.mostrarAyuda();
@@ -173,7 +192,12 @@ public class Juego {
         }
     }
 }
-
+    
+    /**
+     * Lanza los dados para el jugador y actualiza su posición según el resultado.
+     * @author Dylan Gonzales, Julio Quiros, Jesus Anchia
+     * @return true si el jugador ha ganado el juego, false de lo contrario.
+     */
     private boolean tirarDados() {
         if (jugadores.estaVacia()) {
             System.out.println("No hay jugadores en la partida.");
@@ -253,7 +277,13 @@ public class Juego {
 
         return false;
     }
-
+    
+     /**
+     * Verifica si el jugador ha ganado el juego al alcanzar la posición máxima.
+     * @author Dylan Gonzales, Julio Quiros, Jesus Anchia
+     * @param jugador El jugador a verificar.
+     * @return true si el jugador ha ganado, false de lo contrario.
+     */
     private boolean verificarGanador(NodoColaJugadores jugador) {
         if (jugador.getPosicion() == posicionMaxima) {
             return true;

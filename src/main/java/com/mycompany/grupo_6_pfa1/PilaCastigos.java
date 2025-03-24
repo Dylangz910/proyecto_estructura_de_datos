@@ -4,31 +4,38 @@
  */
 package com.mycompany.grupo_6_pfa1;
 
-import java.util.Random;
+
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author  Susana Jimenez
- * 
+ * Pila que maneja los castigos en el juego. Permite agregar, retirar y listar los castigos. .
+ * @author Dylan Gonzales
+ * @param cima es la referencia al nodo arriba de la pila
  */
 public class PilaCastigos {
    private NodoPila cima;
-   private Random random;
 
     public PilaCastigos() {
         cima = null;
-        random = new Random();
     }
-
-    // Método para agregar un castigo a la pila
+    
+    /**
+     * Agrega un castigo a la pila.
+     * @author Dylan Gonzales
+     * @param operacion un carácter que representa la operación del castigo ('-' o '=').
+     * @param valor un número que representa el valor del castigo.
+     */
     public void apilar(char operacion, int valor) {
         NodoPila nuevo = new NodoPila(operacion, valor);
         nuevo.siguiente = cima;
         cima = nuevo;
     }
 
-    // Método para retirar un castigo de la pila
+     /**
+     * Retira un castigo de la pila.
+     * @author Dylan Gonzales
+     * @return retorna el nodo de la pila con el castigo
+     */
     public NodoPila desapilar() {
         if (cima == null) {
             JOptionPane.showMessageDialog(null, "La pila de castigos esta vacía");
@@ -39,7 +46,10 @@ public class PilaCastigos {
         return castigo;
     }
 
-    // Método para listar los castigos en la pila
+    /**
+     * Lista todos los castigos en la pila, mostrando su operación y valor.
+     * @author Dylan Gonzales
+     */
     public void listarCastigos() {
         if (cima == null) {
             JOptionPane.showMessageDialog(null, "La pila de castigos esta vacía");
@@ -54,6 +64,10 @@ public class PilaCastigos {
         JOptionPane.showMessageDialog(null, lista);
     }
     
+    /**
+     * Permite al usuario agregar castigos a la pila mediante una interacción de entrada.
+     * @author Dylan Gonzales
+     */
     public void mantenerPila(){
     int cantidad = 0;
     try {

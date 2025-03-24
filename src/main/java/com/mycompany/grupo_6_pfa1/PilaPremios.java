@@ -4,30 +4,38 @@
  */
 package com.mycompany.grupo_6_pfa1;
 
-import java.util.Random;
 import javax.swing.JOptionPane;
 
 /**
- * Pila premios y sus funcionaliddades
- * @author Susana Jimenez
+ * Pila que maneja los premios en el juego. Permite agregar, retirar y listar los premios.
+ * @author Dylan Gonzales
+ * @param cima es la referencia al nodo arriba de la pila
  */
 public class PilaPremios {
      private NodoPila cima;
-     private Random random;
+    
 
     public PilaPremios() {
         cima = null;
-        random = new Random();
     }
-
-    // Método para agregar un premio a la pila
+    
+    /**
+     * Agrega un premio a la pila.
+     * @author Dylan Gonzales
+     * @param operacion un carácter que representa la operación del premio ('+').
+     * @param valor un número que representa el valor del premio.
+     */
     public void apilar(char operacion, int valor) {
         NodoPila nuevo = new NodoPila(operacion, valor);
         nuevo.siguiente = cima;
         cima = nuevo;
     }
 
-    // Método para retirar un premio de la pila
+    /**
+     * Retira un premio de la pila.
+     * @author Dylan Gonzales
+     * @return retorna el nodo de la pila con el premio
+     */
     public NodoPila desapilar() {
         if (cima == null) {
             JOptionPane.showMessageDialog(null, "La pila de premios esta vacía");
@@ -38,7 +46,10 @@ public class PilaPremios {
         return premio;
     }
 
-    // Método para listar los premios en la pila
+    /**
+     * Lista todos los premios en la pila, mostrando su operación y valor.
+     * @author Dylan Gonzales
+     */
     public void listarPremios() {
         if (cima == null) {
             JOptionPane.showMessageDialog(null, "La pila de premios esta vacía");
@@ -53,6 +64,10 @@ public class PilaPremios {
         JOptionPane.showMessageDialog(null, lista);
     }
     
+    /**
+     * Permite al usuario agregar premios a la pila mediante una interacción de entrada.
+     * @author Dylan Gonzales
+     */
     public void mantenerPila(){
     int cantidad = 0;
     try {
