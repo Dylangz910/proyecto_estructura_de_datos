@@ -33,7 +33,8 @@ public class Juego {
     private Bitacora bitacora;
     private boolean permitirAdicionarJugadores;
     private int cantidadDeJugadoresActuales;
-
+    private ArbolFAQ arbolFAQ = new ArbolFAQ();
+    
     public Juego() {
         jugadores = new Cola_Jugadores();
         premios = new PilaPremios();
@@ -123,7 +124,22 @@ public class Juego {
             int opcion = 0;
             while (true) {
                 try {
-                    opcion = Integer.parseInt(JOptionPane.showInputDialog("***Menu Principal***\n1. Tirar dados\n2. Listar jugadores\n3. Retirar Jugador\n4. Mostrar pila de premios\n5. Mostrar pila de castigos\n6. Mantener pila de premios\n7. Mantener pila de castigos\n8. Estado Actual del Juego\n9. Agregar jugador\n10. Mostrar Ayuda\n11. Bitacora-Historial\n12. Salir del Juego"));
+                    opcion = Integer.parseInt(JOptionPane.showInputDialog("***Menu Principal***\n"
+    + "1. Tirar dados\n"
+    + "2. Listar jugadores\n"
+    + "3. Retirar Jugador\n"
+    + "4. Mostrar pila de premios\n"
+    + "5. Mostrar pila de castigos\n"
+    + "6. Mantener pila de premios\n"
+    + "7. Mantener pila de castigos\n"
+    + "8. Estado Actual del Juego\n"
+    + "9. Agregar jugador\n"
+    + "10. Mostrar Ayuda\n"
+    + "11. Bitacora-Historial\n"
+    + "12. Insertar Nodo del Árbol FAQ\n"
+    + "13. Insertar Pregunta en Nodo Hoja\n"
+    + "14. Imprimir Preguntas de Nodo\n"
+    + "15. Salir del Juego"));
                     break;
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Ingrese una opcion valida");
@@ -185,9 +201,17 @@ public class Juego {
                         break;
                 }
             }
-        } else if (opcion == 12) {
+        } else if (opcion == 15) {
             break;
-        } else {
+        } else if (opcion == 12) {
+            arbolFAQ.insertarNodoPadre();
+        } else if (opcion == 13) {
+            arbolFAQ.insertarPreguntaHija();
+        } else if (opcion == 14) {
+            arbolFAQ.imprimirPreguntasNodo();
+}
+        
+        else {
             JOptionPane.showMessageDialog(null, "Opcion invalida.");
         }
     }
