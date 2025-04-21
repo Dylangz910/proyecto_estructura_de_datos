@@ -9,8 +9,8 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Dylan Gonzáles , Julio Quirós, Jesus Anchia
- * Esta es la clase donde se empieza el juego con sus diferentes funciones y metodos.
+ * @author Dylan Gonzáles , Julio Quirós, Jesus Anchia Esta es la clase donde se
+ * empieza el juego con sus diferentes funciones y metodos.
  * @param jugadores : representacion de jugadores
  * @param random : metodo random para los dados
  * @param premios : referencia a la funcion de premios
@@ -21,7 +21,6 @@ import javax.swing.JOptionPane;
  * @param bitacora : informacion historico de Jugadores
  */
 public class Juego {
-    
 
     private Cola_Jugadores jugadores;
     private Random random;
@@ -34,7 +33,7 @@ public class Juego {
     private boolean permitirAdicionarJugadores;
     private int cantidadDeJugadoresActuales;
     private ArbolFAQ arbolFAQ = new ArbolFAQ();
-    
+
     public Juego() {
         jugadores = new Cola_Jugadores();
         premios = new PilaPremios();
@@ -45,10 +44,14 @@ public class Juego {
         posicionMaxima = 0;
         cargarPremiosCastigos();
         bitacora = new Bitacora();
+
+        arbolFAQ = new ArbolFAQ();
+        arbolFAQ.precargarFAQ(); // 🚀 Precarga automática
     }
-    
+
     /**
      * Método privado para cargar los premios y castigos en el juego.
+     *
      * @author Dylan Gonzales, Julio Quiros, Jesus Anchia
      */
     private void cargarPremiosCastigos() {
@@ -60,10 +63,11 @@ public class Juego {
         castigos.apilar('=', 1);
         castigos.apilar('-', 5);
     }
-    
-     /**
-     * Inicia el juego, solicita la cantidad de jugadores y la posición máxima, y configura si se permiten
-     * adicionar jugadores durante el juego.
+
+    /**
+     * Inicia el juego, solicita la cantidad de jugadores y la posición máxima,
+     * y configura si se permiten adicionar jugadores durante el juego.
+     *
      * @author Dylan Gonzales, Julio Quiros, Jesus Anchia
      */
     public void iniciarJuego() {
@@ -100,19 +104,21 @@ public class Juego {
                 JOptionPane.showMessageDialog(null, "Ingrese una cantidad válida");
             }
         }
-        
+
         String permitir = JOptionPane.showInputDialog("¿Permitir adicionar jugadores durante el juego? (S/N)").toUpperCase();
         if (permitir.equals("S")) {
             permitirAdicionarJugadores = true;
-      } else {
+        } else {
             permitirAdicionarJugadores = false;
-}
-        
+        }
+
         estado.generarPosiciones(posicionMaxima);
     }
-    
-     /**
-     * Ejecuta el ciclo principal del juego, mostrando el menú y gestionando las interacciones con los jugadores.
+
+    /**
+     * Ejecuta el ciclo principal del juego, mostrando el menú y gestionando las
+     * interacciones con los jugadores.
+     *
      * @author Dylan Gonzales, Julio Quiros, Jesus Anchia
      */
     public void jugar() {
@@ -125,21 +131,22 @@ public class Juego {
             while (true) {
                 try {
                     opcion = Integer.parseInt(JOptionPane.showInputDialog("***Menu Principal***\n"
-    + "1. Tirar dados\n"
-    + "2. Listar jugadores\n"
-    + "3. Retirar Jugador\n"
-    + "4. Mostrar pila de premios\n"
-    + "5. Mostrar pila de castigos\n"
-    + "6. Mantener pila de premios\n"
-    + "7. Mantener pila de castigos\n"
-    + "8. Estado Actual del Juego\n"
-    + "9. Agregar jugador\n"
-    + "10. Mostrar Ayuda\n"
-    + "11. Bitacora-Historial\n"
-    + "12. Insertar Nodo del Árbol FAQ\n"
-    + "13. Insertar Pregunta en Nodo Hoja\n"
-    + "14. Imprimir Preguntas de Nodo\n"
-    + "15. Salir del Juego"));
+                            + "1. Tirar dados\n"
+                            + "2. Listar jugadores\n"
+                            + "3. Retirar Jugador\n"
+                            + "4. Mostrar pila de premios\n"
+                            + "5. Mostrar pila de castigos\n"
+                            + "6. Mantener pila de premios\n"
+                            + "7. Mantener pila de castigos\n"
+                            + "8. Estado Actual del Juego\n"
+                            + "9. Agregar jugador\n"
+                            + "10. Mostrar Ayuda\n"
+                            + "11. Bitacora-Historial\n"
+                            + "12. Insertar Nodo del Árbol FAQ\n"
+                            + "13. Insertar Pregunta en Nodo Hoja\n"
+                            + "14. Imprimir Preguntas de Nodo\n"
+                            + "15. Ver Chatbot (Preguntas Frecuentes)\n"
+                            + "16. Salir del Juego"));
                     break;
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Ingrese una opcion valida");
@@ -169,56 +176,61 @@ public class Juego {
                 estado.mostrarEstadoDeJuego(posicionMaxima);
             } else if (opcion == 9) {
                 if (!permitirAdicionarJugadores) {
-                JOptionPane.showMessageDialog(null, "¡ERROR! La configuración de este juego no permite ingresar más jugadores, deberá esperar a que inicie uno nuevo.");
+                    JOptionPane.showMessageDialog(null, "¡ERROR! La configuración de este juego no permite ingresar más jugadores, deberá esperar a que inicie uno nuevo.");
                 } else {
-                    if(cantidadDeJugadoresActuales == 4){
+                    if (cantidadDeJugadoresActuales == 4) {
                         JOptionPane.showMessageDialog(null, "¡ERROR! Ya se ha alcanzado el numero maximo de jugadores, deberá esperar a que inicie uno nuevo.");
-                    }else{
+                    } else {
                         String nuevoJugador = JOptionPane.showInputDialog("Ingrese el nombre del nuevo jugador:");
                         jugadores.encolar(new NodoColaJugadores(nuevoJugador));
                         bitacora.agregarJugador(nuevoJugador);
                         cantidadDeJugadoresActuales++;
-                        JOptionPane.showMessageDialog(null, "Jugador agregado correctamente.");             
-                    }  
-            }
-            } else if (opcion == 10) {
-                 ayuda.mostrarAyuda();
-        } else if (opcion == 11) {
-            boolean salir = false;
-            while (!salir) {
-                bitacora.mostrarJugadorActual();
-                String nav = JOptionPane.showInputDialog("Ver (A)nterior, (S)iguiente o (X) para salir").toUpperCase();
-                switch (nav) {
-                    case "A":
-                        bitacora.anterior();
-                        break;
-                    case "S":
-                        bitacora.siguiente();
-                        break;
-                    default:
-                        bitacora.reiniciarActual();
-                        salir = true;
-                        break;
+                        JOptionPane.showMessageDialog(null, "Jugador agregado correctamente.");
+                    }
                 }
+            } else if (opcion == 10) {
+                ayuda.mostrarAyuda();
+            } else if (opcion == 11) {
+                boolean salir = false;
+                while (!salir) {
+                    bitacora.mostrarJugadorActual();
+                    String nav = JOptionPane.showInputDialog("Ver (A)nterior, (S)iguiente o (X) para salir").toUpperCase();
+                    switch (nav) {
+                        case "A":
+                            bitacora.anterior();
+                            break;
+                        case "S":
+                            bitacora.siguiente();
+                            break;
+                        default:
+                            bitacora.reiniciarActual();
+                            salir = true;
+                            break;
+                    }
+                }
+            } else if (opcion == 15) {
+                  arbolFAQ.verChatbot(); 
+               
+            } else if (opcion == 12) {
+                arbolFAQ.insertarNodoPadre();
+            } else if (opcion == 13) {
+                arbolFAQ.insertarPreguntaHija();
+            } else if (opcion == 14) {
+                arbolFAQ.imprimirPreguntasNodo();
+            } 
+            else if (opcion == 16) {
+                break;
+            } 
+            else {
+                JOptionPane.showMessageDialog(null, "Opcion invalida.");
             }
-        } else if (opcion == 15) {
-            break;
-        } else if (opcion == 12) {
-            arbolFAQ.insertarNodoPadre();
-        } else if (opcion == 13) {
-            arbolFAQ.insertarPreguntaHija();
-        } else if (opcion == 14) {
-            arbolFAQ.imprimirPreguntasNodo();
-}
-        
-        else {
-            JOptionPane.showMessageDialog(null, "Opcion invalida.");
         }
     }
-}
-    
+
     /**
-     * Lanza los dados para el jugador y actualiza su posición según el resultado.
+     * Lanza los dados para el jugador y actualiza su posición según el
+     * resultado.
+     *
      * @author Dylan Gonzales, Julio Quiros, Jesus Anchia
      * @return true si el jugador ha ganado el juego, false de lo contrario.
      */
@@ -238,7 +250,6 @@ public class Juego {
         JOptionPane.showMessageDialog(null, "Jugador " + jugador.getNombre()
                 + " tiró los dados y obtuvo " + dado1 + " y " + dado2
                 + ". Avanza " + total + " posiciones. Nueva posición: " + jugador.getPosicion());
-        
 
         if (verificarGanador(jugador)) {
             return true;
@@ -274,16 +285,16 @@ public class Juego {
         }
         if (verificarGanador(jugador)) {
             if (jugador.getPosicion() == posicionMaxima) {
-        return true;
-    } else if (jugador.getPosicion() > posicionMaxima) {
-        int exceso = jugador.getPosicion() - posicionMaxima;
-        int nuevaPosicion = posicionMaxima - exceso;
-        jugador.setPosicion(nuevaPosicion);
-        JOptionPane.showMessageDialog(null, "Sobrepasaste la posición máxima. Rebotas hacia atrás a la posición: " + nuevaPosicion);
-        return false;
-    } else {
-        return false;
-    }
+                return true;
+            } else if (jugador.getPosicion() > posicionMaxima) {
+                int exceso = jugador.getPosicion() - posicionMaxima;
+                int nuevaPosicion = posicionMaxima - exceso;
+                jugador.setPosicion(nuevaPosicion);
+                JOptionPane.showMessageDialog(null, "Sobrepasaste la posición máxima. Rebotas hacia atrás a la posición: " + nuevaPosicion);
+                return false;
+            } else {
+                return false;
+            }
         }
 
         jugadores.encolar(jugador);
@@ -301,9 +312,10 @@ public class Juego {
 
         return false;
     }
-    
-     /**
+
+    /**
      * Verifica si el jugador ha ganado el juego al alcanzar la posición máxima.
+     *
      * @author Dylan Gonzales, Julio Quiros, Jesus Anchia
      * @param jugador El jugador a verificar.
      * @return true si el jugador ha ganado, false de lo contrario.
@@ -320,4 +332,10 @@ public class Juego {
             return false;
         }
     }
+    
+    
+    
+    ///
+    
+    
 }
